@@ -1,0 +1,41 @@
+import mysql.connector
+from mysql.connector import errorcode
+import os
+
+def fetch_table_data(table_name):
+    cnx = mysql.connector.connect(user='@@@@',
+                                  password='@@@@',
+                                  host='@@@@',
+                                  database= "@@@@")
+    cursor = cnx.cursor(buffered=True)
+    query1 = ("SELECT "
+              "nsmiles,fare,passengers "
+              "FROM "
+              "DB122021.AirfareData "
+              "WHERE "
+              "PASSENGERS > 600 "
+              "LIMIT 100" 
+              ";")
+    cursor.execute(query1 + table_name)
+
+    header = [row[0] for row in cursor.description]
+    rows = cursor.fetchall()
+    cnx.close()
+
+    return header, rows
+
+
+def export(table_name):
+    header, rows = fetch_table_data(table_name)
+
+    f = open(table_name + '.csv', 'w')
+
+    f.write(','.join(header) + '\n')
+
+    for row in rows:
+        f.write(','.join(str(r) for r in row) + '\n')
+
+    f.close()
+    print(str(len(rows)) + ' rows written successfully to ' + f.name)
+
+export('PyQData')
