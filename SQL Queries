@@ -1,0 +1,68 @@
+create table SalesData (
+Date VARCHAR(255),
+DAY INT,
+MONTH VARCHAR(255),
+YEAR INT,
+CustomerAge VARCHAR(255),
+AgeGroup VARCHAR(255),
+CustomerGender VARCHAR(255),
+Country VARCHAR(255),
+STATE VARCHAR(255),
+ProductCat VARCHAR(255),
+SubCat VARCHAR(255),
+Product VARCHAR(255),
+OrderQuantity INT,
+UnitCost INT,
+UnitPrice INT,
+Profit INT,
+Cost INT,
+Revenue INT
+);
+
+LOAD DATA LOCAL INFILE 'filepath of csv'
+into table SalesData
+fields terminated by ","
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+#TableQueries
+#SELECT *
+#FROM SalesData
+
+#SELECT Profit AS LargestSale, Date, Month,Year,CustomerAge,Country
+#FROM SalesData
+#WHERE Profit > 1000
+#order by profit DESC
+#LIMIT 50;
+
+#Create Table AverageProfit (
+#SELECT AVG(Profit)
+#FROM SalesData);
+
+#SELECT *
+#FROM AverageProfit
+
+#Create Table AverageCost (
+#Select avg(Cost)
+#from SalesData);
+
+#SELECT *
+#FROM AverageCost
+
+#SELECT 
+#FROM SalesData
+#WHERE YEAR > 2015 and Country like 'United States';
+
+#SELECT (UnitPrice-UnitCost) as PotentialRevenue, State, Country, date
+#FROM SalesData
+#order by PotentialRevenue DESC
+#Limit 50;
+
+#SELECT *
+#FROM July31stData
+#order by Profit DESC 
+
+SELECT Month, Year, Country, Product, Revenue
+FROM SalesData
+WHERE Year = 2015 and Profit > 500 
